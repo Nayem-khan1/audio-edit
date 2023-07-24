@@ -37,7 +37,7 @@ const Home = () => {
         (error, result) => {
             console.log(result)
             if (!error && result && result.event === "success") {
-                const url = result.info.secure_url;
+                const url = result?.info?.secure_url;
                 console.log(url);
                 if (masterClicked) {
                     setMasterAudioUrl(url);
@@ -88,13 +88,25 @@ const Home = () => {
         setYoutubeApi(event.target.youtubeAPI.value)
     }
     return (
-        <div className='mt-28'>
+        <div className='mt-28 2xl:mt-36'>
+            <div className="mb-10 2xl:mb-20">
+                <h2 className="text-center text-4xl text-gray-300">Use the audio combination to edit your music quickly.</h2>
+            </div>
             <div className='bg-[#2e313d] w-1/2 mx-auto py-10 rounded-xl'>
+
                 <div className='flex flex-col justify-center items-center'>
-                    {masterAudioUrl && youtubeApi && ( <>
+
+                    {masterAudioUrl ? <>
+                        <div className="form-control w-full max-w-xs mt-5">
+                            <input type="text" name='youtubeAPI' placeholder="Youtube API" className="input input-bordered w-full max-w-xs" required/>
+                        </div>
+                        <div className='w-full text-center mt-5'>
+                            <input className="btn btn-outline" type="submit" value="Add" />
+                        </div>
+                    </> ? ( <>
                             <div>{masterAudioUrl}</div>
                             <div>{youtubeApi}</div>
-                            <form onSubmit={submitHandler} encType='multipart/form-data'>
+                            <form onSubmit={submitHandler}>
                                 <div className="form-control w-full max-w-xs mt-5">
                                     <label className="label">
                                         <span className="label-text ">Pick a child audio file</span>
@@ -112,9 +124,8 @@ const Home = () => {
                                 </div>
                             </form>
                         </>
-                    )}
-                    {(!masterAudioUrl || !youtubeApi) && (<>
-                        <form onSubmit={addHandler} encType='multipart/form-data'>
+                    ) : (<>
+                        <form onSubmit={addHandler}>
                             <button onClick={() => {
                                 myWidget.open();
                                 masterClicked = true;
@@ -126,7 +137,8 @@ const Home = () => {
                                 <input className="btn btn-outline" type="submit" value="Add" />
                             </div>
                         </form>
-                    </>)}
+                    </>)
+                        }
                 </div>
             </div>
             <Footer></Footer>
