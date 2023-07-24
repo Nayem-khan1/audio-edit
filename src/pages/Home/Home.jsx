@@ -1,32 +1,32 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import Footer from '../../components/Navbar/Footer/Footer';
 
 const Home = () => {
     const [audioUrl, setAudioUrl] = useState(null)
-    const [masterFile, setMasterFile] = useState(null);
+    const [masterAudioUrl, setMasterAudioUrl] = useState(null);
     const [childFile, setChildFile] = useState(null);
-        var myWidget = window.cloudinary.createUploadWidget(
-            {
-                cloudName: "dbc7aucky",
-                uploadPreset: "insertAudio"
-            },
-            (error, result) => {
-                console.log(result)
-                if(!error && result && result.event === "success"){
-                  console.log(result.info.secure_url);
-                  setAudioUrl(result?.info?.secure_url);
-                }
+
+    const myWidget = window.cloudinary.createUploadWidget(
+        {
+            cloudName: "dbc7aucky",
+            uploadPreset: "insertAudio"
+        },
+        (error, result) => {
+            console.log(result)
+            if (!error && result && result.event === "success") {
+                console.log(result.info.secure_url);
+                setAudioUrl(result?.info?.secure_url);
             }
-          );
-      
+        }
+    );
 
     const masterFileHandler = () => {
-        setMasterFile(audio);
-        setAudio(null);
+        setMasterAudioUrl(audioUrl);
+        setAudioUrl(null);
     }
 
     const childFileHandler = () => {
-        setChildFile(audio);
+        setChildFile(audioUrl);
         audioUrl(null);
     }
     const submitHandler = (event) => {
@@ -38,7 +38,7 @@ const Home = () => {
 
         const allInfo = {
             masterFileData: {
-                secure_url: masterFile,
+                secure_url: masterAudioUrl,
             },
             childFileData: {
                 secure_url: childFile,
@@ -59,8 +59,6 @@ const Home = () => {
         })
         .then((res) => res.json())
         .then((data) => {
-            if (data.acknowledged) {
-            }
             console.log(data);
         })
         .catch((er) => console.log(er));
