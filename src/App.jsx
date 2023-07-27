@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import Login from './pages/Login/Login'
-import Home from './pages/Home/Home'
+import Login from './pages/Home/Home.jsx'
+import Workspace from './pages/Workspace/Workspace.jsx'
 import './App.css'
 import Main from './layout/Main/Main'
 import PrivateRoute from './routes/PrivateRoute'
@@ -18,8 +18,8 @@ function App() {
           element: <Login></Login>
         },
         {
-          path: "/home",
-          element: <PrivateRoute><Home></Home></PrivateRoute>
+          path: "/workspace",
+          element: <PrivateRoute><Workspace></Workspace></PrivateRoute>
         }
       ]
     }
