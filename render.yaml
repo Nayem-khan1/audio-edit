@@ -1,8 +1,0 @@
-services:
-  - name: audio-insert
-    type: web
-    buildCommand: npm run build
-    publishPublic: true
-    env:
-      - key: NODE_ENV
-        value: production
